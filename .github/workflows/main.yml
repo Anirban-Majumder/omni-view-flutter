@@ -118,9 +118,6 @@ jobs:
 
       - name: build macos
         run: |
-          cd macos
-          pod update
-          cd ..
           flutter build macos --release
           brew install create-dmg 
           create-dmg --volname Omni-View-${{ github.ref_name }}-macos --window-pos 200 120 --window-size 800 450 --icon-size 100 --app-drop-link 600 185 Omni-View-${{ github.ref_name }}-macos.dmg build/macos/Build/Products/Release/Omni-View.app
@@ -251,9 +248,6 @@ jobs:
           mv appimagetool-x86_64.AppImage appimagetool
 
           flutter build linux --release
-
-          patchelf --replace-needed libmpv.so.1 libmpv.so build/linux/x64/release/bundle/lib/libmedia_kit_video_plugin.so
-          patchelf --replace-needed libmpv.so.1 libmpv.so build/linux/x64/release/bundle/lib/libmedia_kit_native_event_loop.so
                     
           mv build/linux/x64/release/bundle/{Omni-View,AppRun}
           cp linux/appimage/* build/linux/x64/release/bundle/
